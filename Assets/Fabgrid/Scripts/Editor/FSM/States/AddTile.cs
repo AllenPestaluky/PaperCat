@@ -256,9 +256,9 @@ namespace Fabgrid
         {
             if (tilemap.newTile.prefab != null)
             {
-                if (CanCalculateSizeOf(tilemap.newTile.prefab))
+                if (CanCalculateSizeOf(tilemap.newTile.prefabInstance))
                 {
-                    var bounds = FabgridUtility.GetTileWorldBounds(tilemap.newTile.prefab, tilemap.newTile.sizeCalculationOption, tilemap);
+                    var bounds = FabgridUtility.GetTileWorldBounds(tilemap.newTile.prefabInstance, tilemap.newTile.sizeCalculationOption, tilemap);
 
                     var newTile = new Tile
                     {

@@ -13,10 +13,32 @@ namespace Fabgrid
         public Texture2D thumbnail;
         public Category category = null;
 
+        public GameObject prefabInstance
+        {
+            get
+            {
+                if(_prefabInstance == null && prefab != null)
+                {
+                    _prefabInstance = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                }
+                return _prefabInstance;
+            }
+        }
+        private GameObject _prefabInstance = null; // Instantiated prefab instance to facilitate making sure all our properties are initialized
+
         public Bounds GetWorldBounds(Vector3 position, Quaternion rotation, Tilemap3D tilemap)
         {
             if (position.IsInfinity() || prefab == null)
                 return new Bounds(Vector3.zero, Vector3.one);
+
+            // PaperCat: Size was not serialized. Needs to be calculated
+            // TODO: Would prefer some migration code instead.
+            if(size.sqrMagnitude == 0.0f)
+            {
+                var bounds = FabgridUtility.GetTileWorldBounds(prefabInstance, sizeCalculationOption, tilemap);
+                size = bounds.size;
+                offset = bounds.center;
+            }
 
             return new Bounds(offset + position, rotation * size);
         }
@@ -40,9 +62,7 @@ namespace Fabgrid
         {
             if (position.IsInfinity()) return Mathf.NegativeInfinity;
 
-            var copy = Object.Instantiate(prefab);
-            copy.transform.position = position;
-            copy.transform.rotation = rotation;
+            var copy = GameObject.Instantiate(prefabInstance, position, rotation);
 
             var renderers = copy.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0) return 0f;

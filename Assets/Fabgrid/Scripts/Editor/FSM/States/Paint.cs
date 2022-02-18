@@ -463,18 +463,7 @@ namespace Fabgrid
 
         private void UpdateSelectedTileMeshPreview()
         {
-            var oldPosition = tilemap.selectedTile.prefab.transform.position;
-            tilemap.selectedTile.prefab.transform.position = Vector3.zero;
-            tilemap.selectedTile.prefab.transform.rotation = Quaternion.identity;
-
-            // PaperCat: Make sure our probuilder meshes are created for visualization.
-            UnityEngine.ProBuilder.ProBuilderMesh probuilderMesh = tilemap.selectedTile.prefab.GetComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
-            if (probuilderMesh != null && probuilderMesh.meshSyncState != UnityEngine.ProBuilder.MeshSyncState.InSync)
-            {
-                probuilderMesh.ToMesh();
-            }
-
-            var meshFilters = tilemap.selectedTile.prefab.GetComponentsInChildren<MeshFilter>(true);
+            var meshFilters = tilemap.selectedTile.prefabInstance.GetComponentsInChildren<MeshFilter>(true);
             var combineInstances = new CombineInstance[meshFilters.Length];
 
             for (int i = 0; i < meshFilters.Length; ++i)
@@ -485,8 +474,6 @@ namespace Fabgrid
 
             tilemap.tilePreviewMesh = new Mesh();
             tilemap.tilePreviewMesh.CombineMeshes(combineInstances);
-
-            tilemap.selectedTile.prefab.transform.position = oldPosition;
         }
 
         private void OnClickMainContainer(PointerDownEvent e)
@@ -505,8 +492,6 @@ namespace Fabgrid
 
         private void GetTilePreviews()
         {
-            bool anyMeshRefreshed = false;
-
             foreach (var pair in buttonTilePairs)
             {
                 var button = pair.Key;
@@ -514,31 +499,12 @@ namespace Fabgrid
 
                 if (tile.thumbnail == null && button.Q<Image>().image == null)
                 {
-                    // PaperCat: Make sure our probuilder meshes are created for visualization.
-                    // Will require a refresh of the asset preview cache.
-                    UnityEngine.ProBuilder.ProBuilderMesh probuilderMesh = tile.prefab.GetComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
-                    if (probuilderMesh != null && probuilderMesh.meshSyncState != UnityEngine.ProBuilder.MeshSyncState.InSync)
-                    {
-                        anyMeshRefreshed = true;
-
-                        probuilderMesh.ToMesh();
-                        probuilderMesh.Refresh();
-                    }
-
-                    var preview = AssetPreview.GetAssetPreview(tile.prefab);
+                    var preview = AssetPreview.GetAssetPreview(tile.prefabInstance);
                     if (preview == null) continue;
 
                     tile.thumbnail = preview;
                     button.Q<Image>().image = preview;
                 }
-            }
-
-            // PaperCat: HACK - This forces our preview cache to reset. 1000 is completely arbitrary
-            // We've updated our meshes and need their previews to be refreshed.
-            if (anyMeshRefreshed)
-            {
-                AssetPreview.SetPreviewTextureCacheSize(0);
-                AssetPreview.SetPreviewTextureCacheSize(1000);
             }
         }
 
