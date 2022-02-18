@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Fabgrid
 {
@@ -33,8 +34,8 @@ namespace Fabgrid
         private bool EvaluatePreConditions(Event e)
         {
             if (e.button != 0) return false;
-            if (e.alt || Input.GetKey(KeyCode.LeftAlt)) return false;
-            if (e.control || Input.GetKey(KeyCode.LeftControl)) return false;
+            if (e.alt || Keyboard.current[Key.LeftAlt].isPressed) return false;
+            if (e.control || Keyboard.current[Key.LeftCtrl].isPressed) return false;
 
             //if (!tilemap.HasSelectedVisibleLayer())
             //{

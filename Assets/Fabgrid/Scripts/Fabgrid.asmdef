@@ -2,7 +2,8 @@
     "name": "Fabgrid",
     "rootNamespace": "Fabgrid",
     "references": [
-        "GUID:1826c0224c0d048b88112c79bbb0cd85"
+        "GUID:1826c0224c0d048b88112c79bbb0cd85",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

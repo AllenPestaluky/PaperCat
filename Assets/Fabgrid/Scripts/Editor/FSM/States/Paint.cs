@@ -6,6 +6,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 namespace Fabgrid
 {
@@ -83,7 +84,7 @@ namespace Fabgrid
 
             if (foundButton != null)
             {
-                PointerDownEvent pointerDown = new PointerDownEvent();
+                PointerDownEvent pointerDown = null;
                 OnClickTileButton(tilemap.selectedTile, foundButton.Value.Key, pointerDown);
             }
             else
@@ -424,10 +425,10 @@ namespace Fabgrid
 
         private void OnClickTileButton(Tile tile, Button button, PointerDownEvent e)
         {
-            if (e.imguiEvent.button == 1)
+            if (e != null && e.imguiEvent.button == 1)
                 return;
 
-            if (!e.imguiEvent.shift)
+            if (e == null || !e.imguiEvent.shift)
                 DeselectTiles();
 
             if (selectedButtonTilePairs.ContainsKey(button)) return;
@@ -672,8 +673,8 @@ namespace Fabgrid
 
         private void OnMouseDown(Event e)
         {
-            if (!e.control || Input.GetKey(KeyCode.LeftControl)) return;
-            if (e.alt || Input.GetKey(KeyCode.LeftAlt)) return;
+            if (!e.control || Keyboard.current[Key.LeftCtrl].isPressed) return;
+            if (e.alt || Keyboard.current[Key.LeftAlt].isPressed) return;
 
             FocusOnHoveredGameObject(e.mousePosition);
         }
