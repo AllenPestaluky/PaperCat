@@ -467,7 +467,7 @@ namespace Fabgrid
             var combineInstances = new CombineInstance[meshFilters.Length];
 
             for (int i = 0; i < meshFilters.Length; ++i)
-            {
+            { 
                 combineInstances[i].mesh = meshFilters[i].sharedMesh;
                 combineInstances[i].transform = meshFilters[i].transform.localToWorldMatrix;
             }
@@ -499,7 +499,10 @@ namespace Fabgrid
 
                 if (tile.thumbnail == null && button.Q<Image>().image == null)
                 {
+                    tile.prefabInstance.SetActive(true);
                     var preview = AssetPreview.GetAssetPreview(tile.prefabInstance);
+                    tile.prefabInstance.SetActive(false);
+
                     if (preview == null) continue;
 
                     tile.thumbnail = preview;

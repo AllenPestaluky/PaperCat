@@ -20,6 +20,8 @@ namespace Fabgrid
                 if(_prefabInstance == null && prefab != null)
                 {
                     _prefabInstance = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                    _prefabInstance.hideFlags = HideFlags.HideAndDontSave;
+                    _prefabInstance.SetActive(false);
                 }
                 return _prefabInstance;
             }
@@ -62,7 +64,7 @@ namespace Fabgrid
         {
             if (position.IsInfinity()) return Mathf.NegativeInfinity;
 
-            var copy = GameObject.Instantiate(prefabInstance, position, rotation);
+            var copy = GameObject.Instantiate(prefab, position, rotation);
 
             var renderers = copy.GetComponentsInChildren<Renderer>();
             if (renderers.Length == 0) return 0f;

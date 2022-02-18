@@ -55,18 +55,22 @@ namespace Fabgrid
             }
         }
 
-        private static Bounds GetColliderWorldBounds(GameObject prefab)
+        private static Bounds GetColliderWorldBounds(GameObject prefabInstance)
         {
             // PaperCat: Since we now correctly instantiate our gameobject, we don't need to worry about all the extra logic being done here before.
-            return GetFirstComponent<Collider>(prefab).bounds;
+            prefabInstance.SetActive(true);
+            Bounds bounds = GetFirstComponent<Collider>(prefabInstance).bounds;
+            prefabInstance.SetActive(false);
+            return bounds;
         }
 
-        private static Bounds GetMeshWorldBounds(GameObject prefab)
+        private static Bounds GetMeshWorldBounds(GameObject prefabInstance)
         {
             var min = Vector3.one * float.MaxValue;
             var max = Vector3.one * float.MinValue;
 
-            foreach(var meshFilter in prefab.GetComponentsInChildren<MeshFilter>())
+            prefabInstance.SetActive(true);
+            foreach (var meshFilter in prefabInstance.GetComponentsInChildren<MeshFilter>())
             {
                 if (meshFilter.sharedMesh == null)
                     continue;
@@ -82,6 +86,7 @@ namespace Fabgrid
                     max.z = Mathf.Max(max.z, vertex.z);
                 }
             }
+            prefabInstance.SetActive(false);
 
             var b = new Bounds();
             b.SetMinMax(min, max);
