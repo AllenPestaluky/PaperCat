@@ -57,7 +57,7 @@ namespace Fabgrid
 
         private static Bounds GetColliderWorldBounds(GameObject prefab)
         {
-            // AlexS: Since we now correctly instantiate our gameobject, we don't need to worry about all the extra logic being done here before.
+            // PaperCat: Since we now correctly instantiate our gameobject, we don't need to worry about all the extra logic being done here before.
             return GetFirstComponent<Collider>(prefab).bounds;
         }
 

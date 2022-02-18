@@ -20,6 +20,7 @@ namespace Fabgrid
         private readonly List<Button> selectedTileButtons = new List<Button>();
         private readonly Dictionary<Button, Tile> buttonTilePairs;
         private Tool currentTool;
+        private Tool previousTool;
         private ToolPanel currentToolPanel;
         private LayerPanel layerPanel;
         private readonly EventHandler eventHandler;
@@ -48,8 +49,6 @@ namespace Fabgrid
         {
             InitializeFilterButton();
 
-            tilemap.selectedTile = null;
-
             PopulateTileButtons();
 
             var mainPanelHeader = root.Q<Label>("main-panel-header");
@@ -69,6 +68,28 @@ namespace Fabgrid
             layerPanel = new LayerPanel(root, tilemap);
 
             tilemap.OnRefresh += OnRefresh;
+
+            // PaperCat: See if our tile from our previous session is still around
+            // If so, select it
+            KeyValuePair<Button, Tile>? foundButton = null;
+            foreach (var buttonTile in buttonTilePairs)
+            {
+                if (buttonTile.Value == tilemap.selectedTile)
+                {
+                    foundButton = buttonTile;
+                    break;
+                }
+            }
+
+            if (foundButton != null)
+            {
+                PointerDownEvent pointerDown = new PointerDownEvent();
+                OnClickTileButton(tilemap.selectedTile, foundButton.Value.Key, pointerDown);
+            }
+            else
+            {
+                tilemap.selectedTile = null;
+            }
         }
 
         private void InitializeFilterButton()
@@ -161,7 +182,11 @@ namespace Fabgrid
             toolTypeField.RegisterCallback<ChangeEvent<System.Enum>>(e =>
             {
                 if (e.newValue == null) return;
-                SwitchTool((ToolType)e.newValue);
+
+                if (e.newValue != e.previousValue)
+                {
+                    SwitchTool((ToolType)e.newValue);
+                }
             });
 
             root.Q<VisualElement>("main-container").RegisterCallback<PointerDownEvent>(OnClickMainContainer);
@@ -258,11 +283,12 @@ namespace Fabgrid
             toolTypeField.UnregisterCallback<ChangeEvent<System.Enum>>(e => SwitchTool((ToolType)e.newValue));
         }
 
-        private void SwitchTool(ToolType toolType)
+        private void SwitchTool(ToolType toolType, Tool previous = null)
         {
             currentTool?.OnDestroy();
+            previousTool = previous;
 
-            toolTypeField.value = toolType;
+            toolTypeField.SetValueWithoutNotify(toolType);
             currentTool = toolFactory.Create(toolType);
 
             currentToolPanel?.DestroyPanel();
@@ -440,6 +466,13 @@ namespace Fabgrid
             tilemap.selectedTile.prefab.transform.position = Vector3.zero;
             tilemap.selectedTile.prefab.transform.rotation = Quaternion.identity;
 
+            // PaperCat: Make sure our probuilder meshes are created for visualization.
+            UnityEngine.ProBuilder.ProBuilderMesh probuilderMesh = tilemap.selectedTile.prefab.GetComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
+            if (probuilderMesh != null && probuilderMesh.meshSyncState != UnityEngine.ProBuilder.MeshSyncState.InSync)
+            {
+                probuilderMesh.ToMesh();
+            }
+
             var meshFilters = tilemap.selectedTile.prefab.GetComponentsInChildren<MeshFilter>(true);
             var combineInstances = new CombineInstance[meshFilters.Length];
 
@@ -471,6 +504,8 @@ namespace Fabgrid
 
         private void GetTilePreviews()
         {
+            bool anyMeshRefreshed = false;
+
             foreach (var pair in buttonTilePairs)
             {
                 var button = pair.Key;
@@ -478,6 +513,17 @@ namespace Fabgrid
 
                 if (tile.thumbnail == null && button.Q<Image>().image == null)
                 {
+                    // PaperCat: Make sure our probuilder meshes are created for visualization.
+                    // Will require a refresh of the asset preview cache.
+                    UnityEngine.ProBuilder.ProBuilderMesh probuilderMesh = tile.prefab.GetComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
+                    if (probuilderMesh != null && probuilderMesh.meshSyncState != UnityEngine.ProBuilder.MeshSyncState.InSync)
+                    {
+                        anyMeshRefreshed = true;
+
+                        probuilderMesh.ToMesh();
+                        probuilderMesh.Refresh();
+                    }
+
                     var preview = AssetPreview.GetAssetPreview(tile.prefab);
                     if (preview == null) continue;
 
@@ -485,11 +531,20 @@ namespace Fabgrid
                     button.Q<Image>().image = preview;
                 }
             }
+
+            // PaperCat: HACK - This forces our preview cache to reset. 1000 is completely arbitrary
+            // We've updated our meshes and need their previews to be refreshed.
+            if (anyMeshRefreshed)
+            {
+                AssetPreview.SetPreviewTextureCacheSize(0);
+                AssetPreview.SetPreviewTextureCacheSize(1000);
+            }
         }
 
         private void RegisterEvents()
         {
             eventHandler.OnKeyDown += OnKeyDown;
+            eventHandler.OnKeyUp += OnKeyUp;
             eventHandler.OnMouseMove += OnMouseMove;
             eventHandler.OnSceneGUI += OnSceneGUI;
             eventHandler.OnMouseDown += OnMouseDown;
@@ -503,6 +558,7 @@ namespace Fabgrid
             eventHandler.OnSceneGUI -= OnSceneGUI;
             eventHandler.OnMouseMove -= OnMouseMove;
             eventHandler.OnKeyDown -= OnKeyDown;
+            eventHandler.OnKeyUp -= OnKeyUp;
         }
 
         private void RegisterCurrentToolEvents()
@@ -579,6 +635,24 @@ namespace Fabgrid
             else if (e.keyCode == tilemap.selectionBoxKey)
             {
                 SwitchTool(ToolType.SelectionBox);
+                e.Use();
+            }
+            else if (e.keyCode == KeyCode.LeftShift)
+            {
+                // Track our previous tool
+                if (currentTool.Type != ToolType.Eraser)
+                {
+                    SwitchTool(ToolType.Eraser, currentTool);
+                    e.Use();
+                }
+            }
+        }
+
+        private void OnKeyUp(Event e)
+        {
+            if (e.keyCode == KeyCode.LeftShift && previousTool != null)
+            {
+                SwitchTool(previousTool.Type);
                 e.Use();
             }
         }
