@@ -296,7 +296,11 @@ namespace Fabgrid
                 {
                     if (CanCalculateSizeOf(asset))
                     {
-                        var bounds = FabgridUtility.GetTileWorldBounds(asset, tilemap.newTile.sizeCalculationOption, tilemap);
+                        // instantiate a copy of our prefab, this makes sure that our components get properly initialized for things
+                        // like world bounds (looking at you probuilder >.>)
+                        GameObject prefabInstance = GameObject.Instantiate(asset, Vector3.zero, Quaternion.identity);
+                        var bounds = FabgridUtility.GetTileWorldBounds(prefabInstance, tilemap.newTile.sizeCalculationOption, tilemap);
+                        GameObject.DestroyImmediate(prefabInstance); // Got our bounds, don't need this anymore
 
                         var newTile = new Tile
                         {
