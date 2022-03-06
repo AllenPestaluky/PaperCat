@@ -28,7 +28,7 @@ namespace Fabgrid
                         gridPosition.z);
 
                     tilePosition += tilemap.selectedTile.GetOffset(tilePosition, tilemap.tileRotation, tilemap);
-                    tilePosition += Vector3.up * tilemap.selectedTile.GetWorldBounds(tilePosition, tilemap.tileRotation, tilemap).extents.y;
+                    tilePosition += Vector3.up * (tilemap.selectedTile.prefabInstance.transform.rotation * tilemap.selectedTile.GetWorldBounds(tilePosition, tilemap.tileRotation, tilemap).extents).y;
 
                     return tilePosition;
                 }

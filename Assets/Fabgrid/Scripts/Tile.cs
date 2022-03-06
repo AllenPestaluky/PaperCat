@@ -19,7 +19,7 @@ namespace Fabgrid
             {
                 if(_prefabInstance == null && prefab != null)
                 {
-                    _prefabInstance = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                    _prefabInstance = GameObject.Instantiate(prefab, Vector3.zero, prefab.transform.rotation);
                     _prefabInstance.hideFlags = HideFlags.HideAndDontSave;
                     _prefabInstance.SetActive(false);
                 }
@@ -42,7 +42,7 @@ namespace Fabgrid
                 offset = bounds.center;
             }
 
-            return new Bounds(offset + position, rotation * size);
+            return new Bounds(prefabInstance.transform.rotation * offset + position, rotation * size);
         }
 
         public Vector3 GetCenterToSurfaceVector(Vector3 position, Quaternion rotation, Vector3 direction, Tilemap3D tilemap)
