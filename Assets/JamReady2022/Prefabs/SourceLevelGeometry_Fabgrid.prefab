@@ -1,0 +1,485 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7898129226688034699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7898129226688034700}
+  - component: {fileID: 7898129226688034701}
+  m_Layer: 0
+  m_Name: SourceLevelGeometry_Fabgrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &7898129226688034700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898129226688034699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7898129226832198463}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7898129226688034701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898129226688034699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6ecf9861c932d4aaaaa7d01dfd9470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addOption: 0
+  currentlyEditing:
+    prefab: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  customSize: {x: 0, y: 0, z: 0}
+  floorIndex: 0
+  floorSpacing: 1
+  gridColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  gridSize: 100
+  gridSpacing: 1
+  instantiatedTiles:
+  - {fileID: 7898129226832198461}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  newTile:
+    prefab: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  prefabsPath: Prefabs/Fabgrid-ready/Prototype metrics
+  rotationStepAngle: 90
+  selectedTile:
+    prefab: {fileID: 3193457724653254487, guid: 62f87d005e89581478effd4521b5ec03, type: 3}
+    offset: {x: 8, y: 0.5, z: 1.5}
+    size: {x: 16, y: 0, z: 16}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  snapOption: 0
+  toolType: 1
+  tileSet: {fileID: 0}
+  tileRotation: {x: 0, y: 0, z: 0, w: 1}
+  tiles:
+  - prefab: {fileID: 4964927996230622670, guid: aa4ba524faa47704eafcee0cb9cff3d0, type: 3}
+    offset: {x: 0.5, y: 0, z: 0.5}
+    size: {x: 1, y: 0, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 281713582118249024, guid: d2caa4e61bcc4d74fb937e5623b02750, type: 3}
+    offset: {x: 7.5, y: 0, z: 7.5}
+    size: {x: 16, y: 0, z: 16}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3598855720133208385, guid: ff3251437f452944cbb21977244ad3fc, type: 3}
+    offset: {x: 0.5, y: 0, z: 0.5}
+    size: {x: 1, y: 0, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 683189151380322921, guid: 29469e66c4cfc2e4294314047627ff9f, type: 3}
+    offset: {x: 0.5, y: 0, z: 0.5}
+    size: {x: 2, y: 0, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 8086853198652386063, guid: e58fdf7613f8cd9449c74bd1adb35500, type: 3}
+    offset: {x: 1.5, y: 0, z: 1.5}
+    size: {x: 4, y: 0, z: 4}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 8648948873930844790, guid: 2246b3c03e2253e4695ffd9ce21fd30e, type: 3}
+    offset: {x: 3.5, y: 0, z: 3.5}
+    size: {x: 8, y: 0, z: 8}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 1075568497556430567, guid: ee5173783e6e5b344b73022af57ecb23, type: 3}
+    offset: {x: 7.5, y: 3.5, z: 0.5}
+    size: {x: 15, y: 7, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 1077060245546335021, guid: 2b964370e118fc14f9304eae6e603826, type: 3}
+    offset: {x: 7.5, y: 2.5, z: 2.5}
+    size: {x: 16, y: 5, z: 5}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 6270003695496902779, guid: 1310a747f63ceb143bc2dd4392bcd063, type: 3}
+    offset: {x: 0.5, y: 1, z: 0.5}
+    size: {x: 1, y: 2, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3154552975549640346, guid: 5a8f755055ad02443b0bdf7fac7126a7, type: 3}
+    offset: {x: 0.5, y: 1.5, z: -0.5}
+    size: {x: 1, y: 3, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 4162269464571022931, guid: 62db10b6f3442aa44bd52fb241a0892b, type: 3}
+    offset: {x: -0.5, y: 2, z: 0.5}
+    size: {x: 1, y: 4, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 8912462509215372617, guid: ac0a8280639ef2e4f89be5de9d9bfdaf, type: 3}
+    offset: {x: 0.5, y: 3, z: 0.5}
+    size: {x: 1, y: 6, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3856196235610671233, guid: e00659ee3b92c7e46bbda8166838d734, type: 3}
+    offset: {x: 3.5, y: 0.5, z: 0.5}
+    size: {x: 8, y: 1, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 4176079525878703657, guid: b9693a07de0bfe843ad645d7dc52b8ba, type: 3}
+    offset: {x: 0.5, y: 0.5, z: 0.5}
+    size: {x: 2, y: 1, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2150784398728624875, guid: 80b827d0b56aa6e4c8d896aa8b43668e, type: 3}
+    offset: {x: -1.5, y: 1.0274658, z: -1.5}
+    size: {x: 2, y: 2.0549316, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 8329903926489939313, guid: b5cae8892cf157144abab6bd9a541b0b, type: 3}
+    offset: {x: 0.5, y: 1.5, z: -1.5}
+    size: {x: 2, y: 3, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 268088163042458923, guid: f1faee55d3be9354baca071b0aa69f46, type: 3}
+    offset: {x: 0.5, y: 2, z: 0.5}
+    size: {x: 2, y: 4, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 5009979156684711964, guid: 3c3e6e51a5346dd48b21084a271b89e4, type: 3}
+    offset: {x: 0.5, y: 3, z: 0.5}
+    size: {x: 2, y: 6, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 7228673866715355505, guid: e97836ba5c9d3284da7af7d51122a211, type: 3}
+    offset: {x: 0.5, y: 4, z: 0.5}
+    size: {x: 2, y: 8, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2146572572521782631, guid: 9e5cc0b095340214992468107f29fadf, type: 3}
+    offset: {x: 1.5, y: 1, z: -1.5}
+    size: {x: 4, y: 2, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 7497109132729326468, guid: d2d0f5cbc03dc854cbbb7cbcbf8ef390, type: 3}
+    offset: {x: -2.5, y: 2, z: 0.5}
+    size: {x: 4, y: 4, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3852904936630260264, guid: a53731b742c39eb47ae76b89ff739f0e, type: 3}
+    offset: {x: 3.5, y: 1, z: 0.5}
+    size: {x: 7, y: 2, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 5787715787889165306, guid: c5b252bf6bf321a4caf4a4aff240f155, type: 3}
+    offset: {x: 3.5, y: 1, z: -1.5}
+    size: {x: 8, y: 2, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2614294582444915995, guid: 73471fe6885ea6547b6e8196735d1d0f, type: 3}
+    offset: {x: 1.5, y: 1, z: 1.5}
+    size: {x: 3, y: 2, z: 3}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2648683195781925187, guid: baac671ba9d4fca43b2cc64486d9ce12, type: 3}
+    offset: {x: -1.5, y: 2.5, z: 1.5}
+    size: {x: 3, y: 5, z: 3}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 7079313650941874264, guid: 087a4365653f3964e8052ef2418ccdf2, type: 3}
+    offset: {x: 1.5, y: 0.5, z: 1.5}
+    size: {x: 4, y: 1, z: 4}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 5638634400623582844, guid: 1898947de2df44f41b4ba0b7d5a56bc5, type: 3}
+    offset: {x: 1.5, y: 1, z: 1.5}
+    size: {x: 4, y: 2, z: 4}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3218525235515348173, guid: 2928b0cccca05d14f800e3abd0ff7adf, type: 3}
+    offset: {x: 1.5, y: 1.5, z: 1.5}
+    size: {x: 4, y: 3, z: 4}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2437836574765168688, guid: a5725a00ec283a646991a3f3f06bfecb, type: 3}
+    offset: {x: -2.5, y: 0.5, z: 3.5}
+    size: {x: 4, y: 1, z: 8}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 5044106803831163264, guid: 2a51c21feec4dbc4a802e8909de00480, type: 3}
+    offset: {x: 1.5, y: 1.5, z: 3.5}
+    size: {x: 4, y: 3, z: 8}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 2665631220995736943, guid: 970bf7e0e4c3c8440bbe495a3397d3b7, type: 3}
+    offset: {x: 2.5, y: 1, z: 2.5}
+    size: {x: 5, y: 2, z: 5}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 1545502575225659269, guid: db03530cf374acf4d86114c43310589f, type: 3}
+    offset: {x: 2.5, y: 2.5, z: 2.5}
+    size: {x: 5, y: 5, z: 5}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3309699040829037815, guid: b84d1951bba2b304789e8209285af9c0, type: 3}
+    offset: {x: 3.5, y: 2.5, z: 0.5}
+    size: {x: 8, y: 5, z: 1}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 1537261489973529081, guid: 9fa56b3564bf5e24e9c46cb70a6e274e, type: 3}
+    offset: {x: 3.5, y: 1.5, z: 0.5}
+    size: {x: 8, y: 3, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 6043383868043238394, guid: d9d24b45729766b4fa68d68035311362, type: 3}
+    offset: {x: 3.5, y: 0.5, z: 3.5}
+    size: {x: 8, y: 1, z: 8}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 8787929330143149923, guid: 10d2ddab5a726bb46b1ae9955be63028, type: 3}
+    offset: {x: 8, y: 0.5, z: 1.5}
+    size: {x: 16, y: 0, z: 2}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 7682086139283825808, guid: f1da0d05b5013e242b2c310dc5ef4b07, type: 3}
+    offset: {x: 8, y: 0.5, z: 1.5}
+    size: {x: 16, y: 0, z: 4}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 5252045765218895763, guid: 96cb84394f3ed4c498ad66ff5eb5e0c5, type: 3}
+    offset: {x: 8, y: 0.5, z: 1.5}
+    size: {x: 16, y: 0, z: 8}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 3193457724653254487, guid: 62f87d005e89581478effd4521b5ec03, type: 3}
+    offset: {x: 8, y: 0.5, z: 1.5}
+    size: {x: 16, y: 0, z: 16}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  selectedGameObject: {fileID: 0}
+  tilePreviewMesh: {fileID: 0}
+  tilePreviewMaterial: {fileID: 2100000, guid: a5e04f2e82795b74e9c60d288631a2f5, type: 2}
+  selectedLayer: {fileID: 7898129226832198461}
+  layers:
+  - {fileID: 7898129226832198461}
+  rectangleToolOffsetOption: 0
+  rectangleOffsetMultiplier: {x: 1, y: 1}
+  selectionBoxKey: 98
+  brushKey: 282
+  eraserKey: 283
+  rectangleToolKey: 284
+  raiseFloorKey: 101
+  lowerFloorKey: 113
+  rotateTileAroundYKey: 120
+  rotateTileAroundZKey: 122
+  resetTileRotationKey: 114
+  searchValue: 
+  categories: []
+  selectedCategory:
+    name: 
+    color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &7898129226832198461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7898129226832198463}
+  - component: {fileID: 7898129226832198462}
+  m_Layer: 0
+  m_Name: GrayBlocking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &7898129226832198463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898129226832198461}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7898129226688034700}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7898129226832198462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7898129226832198461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71dae363d4ddae4793816fdc194b046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 7898129226688034701}
