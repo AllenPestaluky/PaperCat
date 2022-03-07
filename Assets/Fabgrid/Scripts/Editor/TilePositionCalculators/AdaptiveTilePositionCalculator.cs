@@ -16,7 +16,8 @@ namespace Fabgrid
             Vector3 tilePosition;
             var floorPosition = tilemap.GetFloorPosition();
 
-            if (tilemap.selectedGameObject != null && tilemap.selectedGameObject.transform.position.y >= floorPosition.y)
+            float epsilon = 0.01f;
+            if (tilemap.selectedGameObject != null && tilemap.selectedGameObject.transform.position.y + epsilon >= floorPosition.y)
             {
                 var ray = HandleUtility.GUIPointToWorldRay(mousePosition);
                 var hit = FabgridRaycaster.InaccurateMeshRaycast(ray, tilemap);
@@ -26,9 +27,9 @@ namespace Fabgrid
                     tilePosition = new Vector3(gridPosition.x,
                         hit.point.y,
                         gridPosition.z);
-
+                     
                     tilePosition += tilemap.selectedTile.GetOffset(tilePosition, tilemap.tileRotation, tilemap);
-                    tilePosition += Vector3.up * (tilemap.selectedTile.prefabInstance.transform.rotation * tilemap.selectedTile.GetWorldBounds(tilePosition, tilemap.tileRotation, tilemap).extents).y;
+                    tilePosition += Vector3.up * ((tilemap.tileRotation * tilemap.selectedTile.prefabInstance.transform.rotation) * tilemap.selectedTile.GetWorldBounds(tilePosition, tilemap.tileRotation, tilemap).extents).y;
 
                     return tilePosition;
                 }

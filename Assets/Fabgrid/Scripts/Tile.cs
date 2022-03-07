@@ -42,7 +42,7 @@ namespace Fabgrid
                 offset = bounds.center;
             }
 
-            return new Bounds(prefabInstance.transform.rotation * offset + position, rotation * size);
+            return new Bounds(rotation * prefabInstance.transform.rotation * offset + position, size);
         }
 
         public Vector3 GetCenterToSurfaceVector(Vector3 position, Quaternion rotation, Vector3 direction, Tilemap3D tilemap)

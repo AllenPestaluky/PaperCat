@@ -116,9 +116,16 @@ namespace Fabgrid
             {
                 if (tilemap.selectedTile?.prefab != null)
                 {
-                    var bounds = tilemap.selectedTile.GetWorldBounds(Vector3.zero, tilemap.tileRotation, tilemap);
-                    return new Vector2(bounds.size.x * tilemap.rectangleOffsetMultiplier.x
-                        , bounds.size.z * tilemap.rectangleOffsetMultiplier.y);
+                    var size = tilemap.selectedTile.GetWorldBounds(Vector3.zero, tilemap.tileRotation, tilemap).extents * 2.0f;
+                    size = (tilemap.tileRotation * tilemap.selectedTile.prefabInstance.transform.rotation) * size;
+                    size.x = Mathf.Abs(size.x);
+                    size.y = Mathf.Abs(size.y);
+                    size.z = Mathf.Abs(size.z);
+
+                    size.x = size.x < 0.01f ? 1.0f : size.x;
+                    size.z = size.z < 0.01f ? 1.0f : size.z;
+                    return new Vector2(size.x * tilemap.rectangleOffsetMultiplier.x
+                        , size.z * tilemap.rectangleOffsetMultiplier.y);
                 }
             }
 

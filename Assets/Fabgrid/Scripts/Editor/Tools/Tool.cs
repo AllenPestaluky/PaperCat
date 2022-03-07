@@ -58,7 +58,7 @@ namespace Fabgrid
             if (tilemap.selectedLayer != null) tile.transform.SetParent(tilemap.selectedLayer.transform);
             else tile.transform.SetParent(tilemap.transform);
             tile.transform.position = position;
-            tile.transform.rotation = tilemap.selectedTile.prefab.transform.rotation * tilemap.tileRotation;
+            tile.transform.rotation = tilemap.tileRotation * tilemap.selectedTile.prefab.transform.rotation;
             Undo.RegisterCreatedObjectUndo(tile, "Placed tile");
             tilemap.instantiatedTiles.Add(tile);
         }
