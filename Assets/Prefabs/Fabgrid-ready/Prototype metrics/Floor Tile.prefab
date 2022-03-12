@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4374605460770069870}
   - component: {fileID: 1083963832590338122}
   - component: {fileID: 5155553649427547464}
-  - component: {fileID: 3559082008916325080}
+  - component: {fileID: 5965507804640328307}
   m_Layer: 8
   m_Name: Floor Tile
   m_TagString: Ground
@@ -184,7 +184,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964927996230622670}
   m_Mesh: {fileID: 0}
---- !u!65 &3559082008916325080
+--- !u!65 &5965507804640328307
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4532801906544994324}
   - component: {fileID: 2342590972913208749}
   - component: {fileID: 2698406559443482922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_8x8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 2699608100549689940
+    rid: 2699608101203215269
   m_Size: {x: 8, y: 0, z: 8}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -129,7 +129,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2699608100549689940
+    - rid: 2699608101203215269
       type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data:
         m_HeightSegments: 0
