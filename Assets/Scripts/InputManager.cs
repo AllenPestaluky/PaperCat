@@ -1,33 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
     public bool rotateForCamera = true;
 
-    Gamepad gp;
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     public Vector2 GetLeftStickInput()
     {
-        
-        gp = Gamepad.current;
-        Vector2 input = gp.leftStick.ReadValue();
+        Vector2 input = new Vector2(0.0f, 0.0f);
+
+        Gamepad gp = Gamepad.current;
+        if (gp != null)
+        {
+            input = gp.leftStick.ReadValue();
+        }
+        else
+        {
+            Keyboard kb = Keyboard.current;
+            if (kb.aKey.isPressed)
+            {
+                input.x = -1.0f;
+            }
+            else if (kb.dKey.isPressed)
+            {
+                input.x = 1.0f;
+            }
+
+            if (kb.wKey.isPressed)
+            {
+                input.y = 1.0f;
+            }
+            else if (kb.sKey.isPressed)
+            {
+                input.y = -1.0f;
+            }
+        }
+
+
         if (rotateForCamera)
-        {       //TODO : gotta put the y input on z before rotating
+        {
+            //TODO : gotta put the y input on z before rotating
             Debug.Log("input going in: " + input);
             float facing = Camera.main.transform.eulerAngles.y;
             Debug.Log("facing: " + facing);
@@ -40,22 +52,48 @@ public class InputManager : MonoBehaviour
 
     public bool GetSouthButton()
     {
-        gp = Gamepad.current;
-        bool input = gp.buttonSouth.isPressed;
+        bool input = false;
+
+        Gamepad gp = Gamepad.current;
+        if (gp != null)
+        {
+            input = gp.buttonSouth.isPressed;
+        }
+        else
+        {
+            input = Keyboard.current.spaceKey.isPressed;
+        }
         return input;
     }
 
     public bool GetSouthButtonDown()
     {
-        gp = Gamepad.current;
-        bool input = gp.buttonSouth.wasPressedThisFrame;
+        bool input = false;
+        Gamepad gp = Gamepad.current;
+        if(gp != null)
+        {
+            input = gp.buttonSouth.wasPressedThisFrame;
+        }
+        else
+        {
+            input = Keyboard.current.spaceKey.wasPressedThisFrame;
+        }
+
         return input;
     }
 
     public bool GetAnyLeftShoulder()
     {
-        gp = Gamepad.current;
-        bool input = gp.leftTrigger.ReadValue() > 0 || gp.leftShoulder.ReadValue() > 0;
+        bool input = false;
+        Gamepad gp = Gamepad.current;
+        if (gp != null)
+        {
+            input = gp.leftTrigger.ReadValue() > 0 || gp.leftShoulder.ReadValue() > 0;
+        }
+        else
+        {
+            input = Keyboard.current.leftShiftKey.isPressed;
+        }
         return input;
     }
 }
