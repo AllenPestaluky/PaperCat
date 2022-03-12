@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4374605460770069870}
   - component: {fileID: 1083963832590338122}
   - component: {fileID: 5155553649427547464}
-  - component: {fileID: 4710735681515166749}
+  - component: {fileID: 3559082008916325080}
   m_Layer: 8
   m_Name: Floor Tile
   m_TagString: Ground
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 1396258076426502153
+    rid: 2699608100549689714
   m_Size: {x: 1, y: 0, z: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -129,7 +129,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1396258076426502153
+    - rid: 2699608100549689714
       type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data:
         m_HeightSegments: 0
@@ -184,8 +184,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964927996230622670}
   m_Mesh: {fileID: 0}
---- !u!64 &4710735681515166749
-MeshCollider:
+--- !u!65 &3559082008916325080
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -194,7 +194,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0, z: 1}
+  m_Center: {x: 0.5, y: 0, z: 0.5}

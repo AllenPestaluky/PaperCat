@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4591993323487232636}
   - component: {fileID: 241385538042607329}
   - component: {fileID: 6875597670327357908}
-  - component: {fileID: 6439371914035682903}
+  - component: {fileID: 7279439455597837012}
   m_Layer: 0
   m_Name: Wall_8x16
   m_TagString: Untagged
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 1396258392604934158
+    rid: 2699608100549690043
   m_Size: {x: 16, y: 0, z: 8}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -129,7 +129,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1396258392604934158
+    - rid: 2699608100549690043
       type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data:
         m_HeightSegments: 0
@@ -184,8 +184,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5252045765218895763}
   m_Mesh: {fileID: 0}
---- !u!64 &6439371914035682903
-MeshCollider:
+--- !u!65 &7279439455597837012
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -194,7 +194,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 16, y: 0, z: 7.9999995}
+  m_Center: {x: 7.999996, y: -0.00000023841858, z: 4}

@@ -8,7 +8,7 @@ public class CatMotor : MonoBehaviour
 {
     public static CatMotor Instance;
     InputManager im;
-    BoxCollider box;
+    Collider collider;
     Rigidbody rb;
     CatMovementParameters mp;
 
@@ -94,7 +94,7 @@ public class CatMotor : MonoBehaviour
     void Start()
     {
         im = GetComponent<InputManager>();
-        box = GetComponentInChildren<BoxCollider>();
+        collider = GetComponentInChildren<Collider>();
         rb = GetComponent<Rigidbody>();
         mp = GetComponent<CatMovementParameters>();
         visibleMesh = GetComponentInChildren<MeshRenderer>().transform;
@@ -309,8 +309,8 @@ public class CatMotor : MonoBehaviour
         if (leftStickActivated)
         {
             RaycastHit wall;
-            Vector3 start = transform.position + Vector3.down * ((box.size.y / 2f) + mp.floorDetectionDistance);
-            Vector3 end = start + forward * (box.size.z / 2f + mp.wallDetectionDistance);
+            Vector3 start = transform.position + Vector3.down * ((collider.bounds.size.y / 2f) + mp.floorDetectionDistance);
+            Vector3 end = start + forward * (collider.bounds.size.z / 2f + mp.wallDetectionDistance);
             int layermask = GroundMask;
             bool hit = Physics.Linecast(start, end, out wall, layermask);
 
@@ -405,10 +405,10 @@ public class CatMotor : MonoBehaviour
         if (rb.velocity.y <= 0)
         {
             //Debug.Log("Grounded.");
-            Vector3 start1 = transform.position + forward * (box.size.z / 2 - mp.floorDetectionDistance);
-            Vector3 end1 = start1 + Vector3.down * (box.size.y / 2 + mp.floorDetectionDistance);
-            Vector3 start2 = transform.position - forward * (box.size.z / 2 - mp.floorDetectionDistance);
-            Vector3 end2 = start2 + Vector3.down * (box.size.y / 2 + mp.floorDetectionDistance);
+            Vector3 start1 = transform.position + forward * (collider.bounds.size.z / 2 - mp.floorDetectionDistance);
+            Vector3 end1 = start1 + Vector3.down * (collider.bounds.size.y / 2 + mp.floorDetectionDistance);
+            Vector3 start2 = transform.position - forward * (collider.bounds.size.z / 2 - mp.floorDetectionDistance);
+            Vector3 end2 = start2 + Vector3.down * (collider.bounds.size.y / 2 + mp.floorDetectionDistance);
 
             RaycastHit rayInfo1;
             RaycastHit rayInfo2;
@@ -456,13 +456,13 @@ public class CatMotor : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            Vector3 start = transform.position + Vector3.down * ((box.size.y / 2f) + mp.floorDetectionDistance);
-            Vector3 end = start + forward * (box.size.z / 2f + mp.wallDetectionDistance);
+            Vector3 start = transform.position + Vector3.down * ((collider.bounds.size.y / 2f) + mp.floorDetectionDistance);
+            Vector3 end = start + forward * (collider.bounds.size.z / 2f + mp.wallDetectionDistance);
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(start, end);
             
-            Vector3 start2 = transform.position + Vector3.down * ((box.size.y / 2f) - mp.floorDetectionDistance);
-            Vector3 end2 = start2 + forward * (box.size.z / 2f + mp.wallDetectionDistance);
+            Vector3 start2 = transform.position + Vector3.down * ((collider.bounds.size.y / 2f) - mp.floorDetectionDistance);
+            Vector3 end2 = start2 + forward * (collider.bounds.size.z / 2f + mp.wallDetectionDistance);
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(start2, end2);
         }

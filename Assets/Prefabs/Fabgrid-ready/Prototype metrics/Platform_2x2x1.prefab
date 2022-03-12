@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2188158108226202780}
   - component: {fileID: 9080175435332727498}
   - component: {fileID: 7503308824359929931}
-  - component: {fileID: 8717781831244128212}
+  - component: {fileID: 7184390653214643144}
   m_Layer: 8
   m_Name: Platform_2x2x1
   m_TagString: Ground
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 1396258393896780389
+    rid: 2699608100549689712
   m_Size: {x: 2, y: 1, z: 2}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -278,7 +278,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1396258393896780389
+    - rid: 2699608100549689712
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
 --- !u!23 &9080175435332727498
 MeshRenderer:
@@ -330,8 +330,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4176079525878703657}
   m_Mesh: {fileID: 0}
---- !u!64 &8717781831244128212
-MeshCollider:
+--- !u!65 &7184390653214643144
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -340,7 +340,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 1, y: 0.5, z: 1}
