@@ -9,11 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6444509220795433018}
-  - component: {fileID: 5642011446983483541}
-  - component: {fileID: 1628465208095819395}
-  - component: {fileID: 4350432572712890294}
-  - component: {fileID: 5679284453508455961}
-  - component: {fileID: 5827214101977970756}
   m_Layer: 0
   m_Name: Wall_16x16
   m_TagString: Untagged
@@ -32,17 +27,54 @@ Transform:
   m_LocalPosition: {x: 36.5, y: -29.5, z: 60.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2867189169536337072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 90, z: -90}
---- !u!114 &5642011446983483541
+--- !u!1 &5977476580738167773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2867189169536337072}
+  - component: {fileID: 3524418700567454751}
+  - component: {fileID: 7510961689673597449}
+  - component: {fileID: 4826421490421689148}
+  - component: {fileID: 3491957365257230995}
+  - component: {fileID: 3349376284516515022}
+  m_Layer: 0
+  m_Name: Wall_16x16
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2867189169536337072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5977476580738167773}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.5}
+  m_LocalPosition: {x: 16, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6444509220795433018}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 180, y: 90, z: -90}
+--- !u!114 &3524418700567454751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193457724653254487}
+  m_GameObject: {fileID: 5977476580738167773}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
@@ -104,13 +136,13 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &1628465208095819395
+--- !u!114 &7510961689673597449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193457724653254487}
+  m_GameObject: {fileID: 5977476580738167773}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
@@ -134,13 +166,13 @@ MonoBehaviour:
       data:
         m_HeightSegments: 0
         m_WidthSegments: 0
---- !u!23 &4350432572712890294
+--- !u!23 &4826421490421689148
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193457724653254487}
+  m_GameObject: {fileID: 5977476580738167773}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -176,21 +208,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &5679284453508455961
+--- !u!33 &3491957365257230995
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193457724653254487}
+  m_GameObject: {fileID: 5977476580738167773}
   m_Mesh: {fileID: 0}
---- !u!65 &5827214101977970756
+--- !u!65 &3349376284516515022
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3193457724653254487}
+  m_GameObject: {fileID: 5977476580738167773}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
