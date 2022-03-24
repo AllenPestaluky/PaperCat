@@ -42,4 +42,22 @@ public class PrefabHelper
             obj.layer = 0;
         }
     }
+
+    [MenuItem("Custom Scripts/PrefabHelper/Snap All Prefab Roots In Scene To Grid")]
+    static void SnapAllRootsInSceneToGrid()
+    {
+        List<GameObject> rootObjects = new List<GameObject>();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjects);
+
+        foreach (GameObject obj in rootObjects)
+        {
+            GameObject prefabRoot = PrefabUtility.GetCorrespondingObjectFromSource(obj);
+            Transform transform = prefabRoot.transform;
+            transform.localPosition = new Vector3((int)transform.localPosition.x, 0, (int)transform.localPosition.z); // snap to grid
+            transform.localScale = Vector3.one;
+            transform.localRotation = Quaternion.identity;
+
+        }
+    }
 }
