@@ -36,17 +36,24 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        return input;
+    }
 
-        if (rotateForCamera)
+    public Vector2 GetRightStickInput()
+    {
+        Vector2 input = new Vector2(0.0f, 0.0f);
+
+        Gamepad gp = Gamepad.current;
+        if (gp != null)
         {
-            //TODO : gotta put the y input on z before rotating
-            Debug.Log("input going in: " + input);
-            float facing = Camera.main.transform.eulerAngles.y;
-            Debug.Log("facing: " + facing);
-            Vector3 rotatedInput = Quaternion.Euler(0, facing, 0) * new Vector3(input.x, 0, input.y);
-            Debug.Log("input going out: " + input);
-            input = new Vector2(rotatedInput.x, rotatedInput.z);
+            input = gp.rightStick.ReadValue();
         }
+        else
+        {
+            // TODO make camera with mouse not horrible
+            //input = Mouse.current.delta.ReadValue();
+        }
+
         return input;
     }
 
