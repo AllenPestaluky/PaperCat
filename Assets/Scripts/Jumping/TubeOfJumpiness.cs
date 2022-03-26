@@ -9,7 +9,7 @@ namespace CatGame.Movement
         private const float GRID_OFFSET = 0.5f;
 
         [SerializeField]
-        private int _diameter;
+        private float _diameter;
 
         [SerializeField]
         private float _cursorAllowance;
@@ -20,25 +20,35 @@ namespace CatGame.Movement
         [SerializeField]
         private Transform _cursorHolder;
 
+        private float _lastDiameter;
+        private float _lastCursorAllowance;
+
         private void Update()
         {
-            //gather cursors. remove them from holder
-            WipCursor[] cursorArray = GetComponentsInChildren<WipCursor>();
-            _cursorHolder.DetachChildren();
-            //change the scale of the cylinder
-            gameObject.transform.localScale = new Vector3(_diameter, 2f, _diameter);
+            if (_lastDiameter != _diameter || _lastCursorAllowance != _cursorAllowance || transform.hasChanged)
+            {
+                _lastDiameter = _diameter;
+                _lastCursorAllowance = _cursorAllowance;
 
-            //update our pool of points
-            RefreshPool(cursorArray);
+                //gather cursors. remove them from holder
+                WipCursor[] cursorArray = GetComponentsInChildren<WipCursor>();
+                _cursorHolder.DetachChildren();
+                //change the scale of the cylinder
+                gameObject.transform.localScale = new Vector3(_diameter, 2f, _diameter);
+
+                //update our pool of points
+                RefreshPool(cursorArray);
+            }            
         }
 
-        private static float SnapCoord(float rawCoord)
+        public static float SnapCoord(float rawCoord)
         {
             return Mathf.Floor(rawCoord) + GRID_OFFSET;
         }
 
         private void RefreshPool(WipCursor[] oldCursorArray)
         {
+            //TODO: manage our cursors better. Map them by grid coordinates? So that if a cursor was already placed, we can reuse it without having to raycast again
             int newCursorCount = 0;
             int reusedCursorCount = 0;
 
@@ -47,24 +57,29 @@ namespace CatGame.Movement
             float startZ = SnapCoord(gameObject.transform.position.z - _diameter * 0.5f);
 
             float detectRange = _diameter * 0.5f + _cursorAllowance;
-            for (int x = 0; x <= _diameter; x++)
+            for (float x = 0; x <= _diameter; x++)
             {
-                for (int z = 0; z <= _diameter; z++)
+                for (float z = 0; z <= _diameter; z++)
                 {
-                    Vector3 point = new Vector3(startX + x, gameObject.transform.position.y + 0.1f, startZ + z);
-                    float distance = Vector3.Distance(gameObject.transform.position, point);
-                    if (distance < detectRange)
+                    //first, use this point for distance calculation, ignoring y
+                    Vector3 allPurposePoint = new Vector3(startX + x, gameObject.transform.position.y, startZ + z);
+                    float distance = Vector3.Distance(gameObject.transform.position, allPurposePoint);
+                    //next, reuse the point for raycasting
+                    allPurposePoint.y = gameObject.transform.position.y + 16;
+                    if (distance < detectRange && Physics.Raycast(allPurposePoint, transform.TransformDirection(Vector3.down), out RaycastHit hit))
                     {
+                        //finally, reuse the point for positioning the target on the ground's surface
+                        allPurposePoint.y = hit.point.y + 0.1f;
                         if (newCursorCount < oldCursorArray.Length)
                         {
                             reusedCursorCount++;
                             WipCursor reusedCursor = oldCursorArray[newCursorCount];
                             reusedCursor.transform.SetParent(_cursorHolder, true);
-                            reusedCursor.transform.position = point;
+                            reusedCursor.transform.position = allPurposePoint;
                         }
                         else
                         {
-                            WipCursor newCursor = Instantiate(_cursorPrefab, point, this.transform.rotation);
+                            WipCursor newCursor = Instantiate(_cursorPrefab, allPurposePoint, this.transform.rotation);
                             newCursor.transform.SetParent(_cursorHolder, true);
                         }
                         newCursorCount++;
