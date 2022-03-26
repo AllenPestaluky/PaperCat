@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 8000602754866906356}
   - component: {fileID: 8577204059185061894}
   - component: {fileID: 602114275552193381}
-  - component: {fileID: 148016072280548404}
   m_Layer: 0
   m_Name: Kill Floor trigger
-  m_TagString: Untagged
+  m_TagString: Deadly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 4006926638648131609
+    rid: 5438613926651101555
   m_Size: {x: -20, y: 0, z: 32}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -223,7 +222,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4006926638648131609
+    - rid: 5438613926651101555
       type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data:
         m_HeightSegments: 1
@@ -235,7 +234,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762473147823932813}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -305,18 +304,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manageVisibility: 1
---- !u!114 &148016072280548404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762473147823932813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c13852f827673f4b9f6e431947976cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7028523896018897561
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,7 +495,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4394
+  m_VersionIndex: 4397
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -526,7 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Shape:
-    rid: 4006926638648131609
+    rid: 5438613926651101575
   m_Size: {x: -20, y: 0, z: 32}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_PivotLocation: 1
@@ -538,7 +525,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4006926638648131609
+    - rid: 5438613926651101575
       type: {class: Plane, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data:
         m_HeightSegments: 1
@@ -602,7 +589,7 @@ MeshCollider:
   m_GameObject: {fileID: 7028523896018897561}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
