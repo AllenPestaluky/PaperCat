@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CatMotor : MonoBehaviour
 {
@@ -11,6 +10,9 @@ public class CatMotor : MonoBehaviour
     Collider collider;
     Rigidbody rb;
     CatMovementParameters mp;
+
+    [SerializeField]
+    private CatDeath catDeathComponent;
 
     Transform visibleMesh;
     JumpArcRenderer jumpArcRenderer;
@@ -31,8 +33,6 @@ public class CatMotor : MonoBehaviour
     float footstepTiming;
     Vector3 forward;
     Vector3 initialPosition;
-
-    Transform previousCheckpoint;
 
     float TurnaroundTime
     {
@@ -482,18 +482,11 @@ public class CatMotor : MonoBehaviour
 
     public void UpdateCheckpoint(Transform newCheckpoint)
     {
-        previousCheckpoint = newCheckpoint;
+        catDeathComponent.UpdateCheckpoint(newCheckpoint);
     }
 
-    public void RestartScene()
+    public void StartDying()
     {
-        //TODO HACK restarting the scene completely for now
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-    }
-
-    public void RestartFromCheckpoint()
-    {
-        transform.position = previousCheckpoint.position;
+        catDeathComponent.StartDying();
     }
 }

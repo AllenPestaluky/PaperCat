@@ -26,9 +26,7 @@ public class CatCollisionManager : MonoBehaviour
         
         if (other.tag == "Deadly")
         {
-            cm.RestartFromCheckpoint();
+            cm.StartDying();
         }
-
-
     }
 }
