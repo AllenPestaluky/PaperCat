@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.ProBuilder;
 
 public enum BoulderDirections
@@ -19,7 +17,7 @@ public class Boulder : MonoBehaviour
     public float initialVelocity = 2f;
     public float force = 2f;
     public bool rolling;
-    
+
 
     Rigidbody rb;
     Transform t;
@@ -27,7 +25,7 @@ public class Boulder : MonoBehaviour
     WheelCollider wheel;
     MeshCollider cylander;
     BoulderKillzoneFollow kzf;
-    
+
 
     float groundDetectionRayLength = 0.85f;
     float rearGroundDetectionOffset = 0.8f;
@@ -74,7 +72,7 @@ public class Boulder : MonoBehaviour
         kzf = GetComponentInChildren<BoulderKillzoneFollow>();
 
         UpdateFacing(Forward);
-        
+
     }
 
     void FixedUpdate()
