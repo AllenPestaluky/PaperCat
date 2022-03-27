@@ -30,6 +30,7 @@ public class MoveStateBase
         Debug.Log("Update state: " + m_Name);
     }
 
+    public virtual void FixedUpdate(float deltaTime) { }
 
     public virtual void OnMoveActionStarted() { }
 
