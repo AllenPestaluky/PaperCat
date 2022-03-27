@@ -22,6 +22,9 @@ namespace CatGame.Movement
         public const float GRID_OFFSET = 0.5f;
         private const int LAYER_MASK = 8;
 
+        //debuggery
+        private bool _drawCastLines = false;
+
         private void Awake()
         {
             if (_mapFilled)
@@ -77,11 +80,15 @@ namespace CatGame.Movement
                     Vector3 lineEnd = new Vector3(x + GRID_OFFSET, _negativeTransform.position.y, z + GRID_OFFSET);
                     //default to NaN (no tile. it is the abyss)
                     float height;
-                    Debug.DrawLine(lineStart, lineEnd, Color.magenta, 20f, false);
-                    if (Physics.Linecast(lineStart, lineEnd, out RaycastHit hit))
+                    if (_drawCastLines)
+                    {
+                        Debug.DrawLine(lineStart, lineEnd, Color.magenta, 20f, false);
+                    }
+                    if (Physics.Linecast(lineStart, lineEnd, out RaycastHit hit, LAYER_MASK))
                     {
                         height = hit.point.y;
-                    } else
+                    }
+                    else
                     {
                         height = float.NaN;
                     }
@@ -95,10 +102,10 @@ namespace CatGame.Movement
             goodHeight = float.NaN;
             int xIndex = Mathf.FloorToInt(x) - _xOffset;
             int zIndex = Mathf.FloorToInt(z) - _zOffset;
-            if (xIndex > 0 && xIndex < _xCount & zIndex > 0 && zIndex < _heightMap.Length/_xCount)
+            if (xIndex > 0 && xIndex < _xCount & zIndex > 0 && zIndex < _heightMap.Length / _xCount)
             {
                 goodHeight = _heightMap[Mathf.FloorToInt(x) - _xOffset, Mathf.FloorToInt(z) - _zOffset];
-            }            
+            }
             return !float.IsNaN(goodHeight);
         }
 
