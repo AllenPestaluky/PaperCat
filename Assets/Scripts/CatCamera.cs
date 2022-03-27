@@ -57,8 +57,6 @@ public class CatCamera : MonoBehaviour
 
     private void Start()
     {
-
-
         Cursor.lockState = CursorLockMode.Locked;
         SetCameraLocked(false);
     }
@@ -71,21 +69,25 @@ public class CatCamera : MonoBehaviour
             SetCameraLocked(!isCameraLocked);
         }
 
+        // TODO eventually CatMovement should be calling this I believe
+        UpdateCamera(inputManager.GetRightStickInput());
+    }
+
+    public void UpdateCamera(Vector2 lookInput)
+    {
         if (isCameraLocked)
-        { 
-            UpdateLockedCamera();
+        {
+            UpdateLockedCamera(lookInput);
         }
         else
         {
-            UpdateFreeCamera();
+            UpdateFreeCamera(lookInput);
         }
     }
 
     // Camera can only look forward left, forward right, or forward
-    private void UpdateLockedCamera()
+    private void UpdateLockedCamera(Vector2 lookInput)
     {
-        Vector2 lookInput = inputManager.GetRightStickInput();
-
         // If stick pushed left
         if (lookInput.x < -lockedCamStickThreshold)
         {
@@ -126,10 +128,8 @@ public class CatCamera : MonoBehaviour
     }
 
     // Free look camera
-    private void UpdateFreeCamera()
+    private void UpdateFreeCamera(Vector2 lookInput)
     {
-        Vector2 lookInput = inputManager.GetRightStickInput();
-
         // Based on https://www.youtube.com/watch?v=537B1kJp9YQ
 
         // Rotate the Follow Target transform based on the input
