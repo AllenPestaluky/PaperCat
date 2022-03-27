@@ -10,6 +10,9 @@ public class CatMovement : MonoBehaviour
     [SerializeField]
     InputActionAsset m_CatActionMap;
 
+    [SerializeField]
+    GroundDetector m_GroundedDetector;
+
     // State stuff
     public enum EMoveState 
     {
