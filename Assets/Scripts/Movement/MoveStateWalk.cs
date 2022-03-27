@@ -6,25 +6,22 @@ using UnityEngine.InputSystem;
 public class MoveStateWalk : MoveStateBase
 {
     Rigidbody m_RigidBody;
-    public MoveStateWalk(CatMovement cm, string name) : base(cm, name)
+
+    public new void Start()
     {
-        m_RigidBody = cm.GetComponent<Rigidbody>();
+        base.Start();
+        m_RigidBody = GetComponent<Rigidbody>();
     }
 
-    public override void OnMoveActionCanceled() 
-    {
-        Debug.Log("MoveStateBase Action Canceled");
+    public override CatMovement.EMoveState GetStateEnum()
+    { 
+        return CatMovement.EMoveState.Walk;
     }
 
     public override void OnMoveActionPerformed(Vector2 input)
     {
         Debug.Log("MoveStateBase Action Performed " + input.ToString());
         m_RigidBody.AddForce(GetLeftStickInput(input), ForceMode.Impulse);
-    }
-
-    public override void OnMoveActionStarted() 
-    {
-        Debug.Log("MoveStateBase Action Started");
     }
 
     private Vector3 GetLeftStickInput(Vector2 input)
