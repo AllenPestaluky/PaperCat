@@ -1,18 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class JumpPrediction : MonoBehaviour
 {
+    public enum JumpProcessingType
+    {
+        ManualJump,
+        UnityJump
+    }
+
     public LineRenderer arcRenderer;
-    public Transform target;
-    public Vector3 acceleration = new Vector3(0f, -9.8f, 0f);
-    public float jumpHeight = 5f;
+    public float jumpHeight = 3f;
+    public float jumpDistance = 4f; 
+
+    public JumpProcessingType jumpProcessingType = JumpProcessingType.ManualJump;
+
+    // Manual movement handling
+    bool isJumping = false;
+    float jumpTime;
+    JumpArc jumpArc;
 
     void Update()
     {
-        JumpArc arc = new JumpArc(transform.position, target.position, jumpHeight, acceleration);
-        ShowJumpArc(arc);
+        if (Keyboard.current.ctrlKey.wasPressedThisFrame)
+        {
+            TapJump();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        switch (jumpProcessingType)
+        {
+            case JumpProcessingType.ManualJump:
+                if (isJumping)
+                {
+                    Rigidbody rb = GetComponent<Rigidbody>();
+                    rb.MovePosition(jumpArc.GetPositionAlong(jumpTime));
+                    jumpTime += Time.fixedDeltaTime;
+                }
+                break;
+            case JumpProcessingType.UnityJump:
+                break;
+        }
     }
 
     public void ShowJumpArc(JumpArc arc)
@@ -25,5 +57,40 @@ public class JumpPrediction : MonoBehaviour
             positions[i] = arc.GetPositionAlong(i * tf / (segments - 1));
         }
         arcRenderer.SetPositions(positions);
+    }
+
+    public void TapJump()
+    {
+        Vector3 target = transform.position + transform.forward * jumpDistance;
+        jumpArc = new JumpArc(transform.position, target, jumpHeight, Physics.gravity);
+        ShowJumpArc(jumpArc);
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        switch (jumpProcessingType)
+        {
+            case JumpProcessingType.ManualJump:
+                jumpTime = 0f;
+                isJumping = true;
+                rb.useGravity = false;
+                rb.velocity = Vector3.zero;
+                break;
+            case JumpProcessingType.UnityJump:
+                rb.AddForce(jumpArc.InitialVelocity, ForceMode.VelocityChange);
+                break;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch (jumpProcessingType)
+        {
+            case JumpProcessingType.ManualJump:
+                if (isJumping)
+                {
+                    isJumping = false;
+                    GetComponent<Rigidbody>().useGravity = true;
+                }
+                break;
+        }
     }
 }

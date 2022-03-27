@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PrefabHelper
 {
-    [MenuItem("Custom Scripts/PrefabHelper/Nest All Prefabs in Scene")]
+    //[MenuItem("Custom Scripts/PrefabHelper/Nest All Prefabs in Scene")]
     static void NestAllPrefabsInScene()
     {
         List<GameObject> rootObjects = new List<GameObject>();
@@ -43,7 +43,7 @@ public class PrefabHelper
         }
     }
 
-    [MenuItem("Custom Scripts/PrefabHelper/Snap All Prefab Roots In Scene To Grid")]
+    //[MenuItem("Custom Scripts/PrefabHelper/Snap All Prefab Roots In Scene To Grid")]
     static void SnapAllRootsInSceneToGrid()
     {
         List<GameObject> rootObjects = new List<GameObject>();
