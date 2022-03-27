@@ -51,8 +51,6 @@ public class MoveStateWalk : MoveStateBase
     {
         Vector3 stickMovementDirection = GetLeftStickInput(m_StickDirection);
 
-        Debug.Log(stickMovementDirection);
-
         float prevSpeed = m_CurrentSpeed;
         float desiredSpeed = stickMovementDirection.magnitude * Speed;
 
@@ -67,11 +65,11 @@ public class MoveStateWalk : MoveStateBase
 
         if (prevSpeed < desiredSpeed)
         {
-            m_CurrentSpeed = m_CurrentSpeed + Acceleration * deltaTime;
+            m_CurrentSpeed += Acceleration * deltaTime;
         }
         if (prevSpeed > desiredSpeed)
         {
-            m_CurrentSpeed = m_CurrentSpeed - Deceleration * deltaTime;
+            m_CurrentSpeed -= Deceleration * deltaTime;
         }
 
         if (m_CurrentSpeed > Speed)
@@ -85,10 +83,9 @@ public class MoveStateWalk : MoveStateBase
         }
 
         m_RigidBody.rotation = Quaternion.LookRotation(m_CurrentDirection);
-        m_RigidBody.velocity = (m_CurrentSpeed * m_CurrentDirection);
 
-        Debug.Log(m_CurrentSpeed);
-
+        Vector3 finalVelocity = m_CurrentSpeed * m_CurrentDirection;
+        m_RigidBody.velocity = new Vector3(finalVelocity.x, m_RigidBody.velocity.y, finalVelocity.z);
     }
 
 
