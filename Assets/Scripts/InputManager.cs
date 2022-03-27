@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public bool rotateForCamera = true;
-
     public Vector2 GetLeftStickInput()
     {
         Vector2 input = new Vector2(0.0f, 0.0f);
@@ -100,6 +98,21 @@ public class InputManager : MonoBehaviour
         else
         {
             input = Keyboard.current.leftShiftKey.isPressed;
+        }
+        return input;
+    }
+
+    public bool GetAnyLeftShoulderDown()
+    {
+        bool input = false;
+        Gamepad gp = Gamepad.current;
+        if (gp != null)
+        {
+            input = gp.leftTrigger.wasPressedThisFrame || gp.leftShoulder.wasPressedThisFrame;
+        }
+        else
+        {
+            input = Keyboard.current.leftShiftKey.wasPressedThisFrame;
         }
         return input;
     }
