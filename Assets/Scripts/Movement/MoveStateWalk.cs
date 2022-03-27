@@ -7,10 +7,29 @@ public class MoveStateWalk : MoveStateBase
 {
     Rigidbody m_RigidBody;
 
+    [SerializeField]
+    [Tooltip("Max speed in units per second")]
+    float Speed = 1.0f;
+    [SerializeField]
+    [Tooltip("Acceleration in units per second per second")]
+    float Acceleration = 4.0f;
+    [SerializeField]
+    [Tooltip("Deceleration in units per second per second")]
+    float Deceleration = 10.0f;
+    [SerializeField]
+    [Tooltip("Rotation speed, in radians per second")]
+    float RotationSpeed = 6.28318f;
+
+    private Vector2 m_StickDirection = Vector2.zero;
+    private Vector3 m_CurrentDirection;
+    private float m_CurrentSpeed = 0.0f;
+
     public new void Start()
     {
         base.Start();
         m_RigidBody = GetComponent<Rigidbody>();
+
+        m_CurrentDirection = m_RigidBody.rotation * Vector3.forward;
     }
 
     public override CatMovement.EMoveState GetStateEnum()
@@ -20,9 +39,58 @@ public class MoveStateWalk : MoveStateBase
 
     public override void OnMoveActionPerformed(Vector2 input)
     {
-        Debug.Log("MoveStateBase Action Performed " + input.ToString());
-        m_RigidBody.AddForce(GetLeftStickInput(input), ForceMode.Impulse);
+        m_StickDirection = input;
     }
+
+    public override void OnMoveActionCanceled()
+    {
+        m_StickDirection = Vector2.zero;
+    }
+
+    public override void ActiveStateFixedUpdate(float deltaTime)
+    {
+        Vector3 stickMovementDirection = GetLeftStickInput(m_StickDirection);
+
+        Debug.Log(stickMovementDirection);
+
+        float prevSpeed = m_CurrentSpeed;
+        float desiredSpeed = stickMovementDirection.magnitude * Speed;
+
+        if (stickMovementDirection.magnitude > 0.1f)
+        {
+            m_CurrentDirection = Vector3.RotateTowards(m_CurrentDirection, stickMovementDirection, RotationSpeed * deltaTime, 0.0f);
+        }
+        else
+        {
+            desiredSpeed = 0.0f;
+        }
+
+        if (prevSpeed < desiredSpeed)
+        {
+            m_CurrentSpeed = m_CurrentSpeed + Acceleration * deltaTime;
+        }
+        if (prevSpeed > desiredSpeed)
+        {
+            m_CurrentSpeed = m_CurrentSpeed - Deceleration * deltaTime;
+        }
+
+        if (m_CurrentSpeed > Speed)
+        {
+            m_CurrentSpeed = Speed;
+        }
+
+        if (m_CurrentSpeed < 0.0f)
+        {
+            m_CurrentSpeed = 0.0f;
+        }
+
+        m_RigidBody.rotation = Quaternion.LookRotation(m_CurrentDirection);
+        m_RigidBody.velocity = (m_CurrentSpeed * m_CurrentDirection);
+
+        Debug.Log(m_CurrentSpeed);
+
+    }
+
 
     private Vector3 GetLeftStickInput(Vector2 input)
     {
