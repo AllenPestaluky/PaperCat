@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CatCollisionManager : MonoBehaviour
 {
-    CatMotor cm;
+    CatDeath catDeath;
 
     void Awake()
     {
-        cm = GetComponent<CatMotor>();
+        catDeath = GetComponent<CatDeath>();
     }
     
     private void OnTriggerEnter(Collider other)
@@ -20,13 +20,13 @@ public class CatCollisionManager : MonoBehaviour
 
         if (other.tag == "Checkpoint")
         {
-            cm.UpdateCheckpoint(other.transform);   
+            catDeath.UpdateCheckpoint(other.transform);   
             other.SendMessage("Trigger");
         }
         
         if (other.tag == "Deadly")
         {
-            cm.StartDying();
+            catDeath.StartDying();
         }
     }
 }

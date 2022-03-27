@@ -48,6 +48,19 @@ public class CatMovement : MonoBehaviour
         jumpAction.canceled += OnJumpActionCanceled;
     }
 
+    private void OnDestroy()
+    {
+        InputAction moveAction = m_CatActionMap.FindAction("Move");
+        moveAction.started -= OnMoveActionStarted;
+        moveAction.performed -= OnMoveActionPerformed;
+        moveAction.canceled -= OnMoveActionCanceled;
+
+        InputAction jumpAction = m_CatActionMap.FindAction("Jump");
+        jumpAction.started -= OnJumpActionStarted;
+        jumpAction.performed -= OnJumpActionPerformed;
+        jumpAction.canceled -= OnJumpActionCanceled;
+    }
+
     void Update()
     {
         m_CurrentState.Update(Time.deltaTime);
