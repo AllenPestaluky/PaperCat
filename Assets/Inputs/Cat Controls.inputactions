@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "950ac3c9-8ade-4059-acaf-4e3e4423bce0",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -20,7 +20,7 @@
                     "id": "6b451f0b-4310-4a3f-a260-27af8e506356",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap,Press,Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -48,15 +48,6 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "LongJump",
-                    "type": "Button",
-                    "id": "d929d391-e920-4680-9b5e-bb391887e4bb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold",
                     "initialStateCheck": false
                 }
             ],
@@ -201,28 +192,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c86b444-f348-40b1-aaa4-b1a331fe03dc",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LongJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8130fc7b-2292-40f6-abb6-98e6e20196c1",
-                    "path": "<Keyboard>/space",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LongJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

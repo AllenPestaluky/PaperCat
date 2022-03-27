@@ -10,29 +10,44 @@ public class CatMovement : MonoBehaviour
     [SerializeField]
     InputActionAsset m_CatActionMap;
 
-    // state stuff
-    Dictionary<EMoveState, MoveStateBase> m_MoveStateMap;
-    MoveStateBase m_CurrentState;
+    [SerializeField]
+    GroundDetector m_GroundedDetector;
 
+    // State stuff
     public enum EMoveState 
     {
+        Invalid,
         Walk,
         Run,
         Jump,
     };
+    Dictionary<EMoveState, MoveStateBase> m_MoveStateMap;
+
+    [SerializeField]
+    MoveStateBase m_CurrentState;
 
     void Start()
     {
         Debug.Assert(m_CatActionMap != null);
 
-        m_MoveStateMap = new Dictionary<EMoveState, MoveStateBase>
+        m_MoveStateMap = new Dictionary<EMoveState, MoveStateBase>();
+        foreach (MoveStateBase state in GetComponents<MoveStateBase>())
         {
-            { EMoveState.Walk,  new MoveStateWalk(this, "Walk") },
-            { EMoveState.Run,   new MoveStateRun(this, "Run")   },
-            { EMoveState.Jump,  new MoveStateJump(this, "Jump") }
-        };
+            m_MoveStateMap.Add(state.GetStateEnum(), state);
+        }
 
-        m_CurrentState = m_MoveStateMap[EMoveState.Walk];
+        if (m_CurrentState == null)
+        {
+            if (m_MoveStateMap.ContainsKey(EMoveState.Walk))
+            {
+                m_CurrentState = m_MoveStateMap[EMoveState.Walk];
+            }
+            else
+            {
+                Debug.LogError("CatMovement - Default state not found. " +
+                    "Attach a MoveStateWalk component, or set another state as the default.");
+            }
+        }
 
         m_CatActionMap.Enable();
 
@@ -48,14 +63,27 @@ public class CatMovement : MonoBehaviour
         jumpAction.canceled += OnJumpActionCanceled;
     }
 
+    private void OnDestroy()
+    {
+        InputAction moveAction = m_CatActionMap.FindAction("Move");
+        moveAction.started -= OnMoveActionStarted;
+        moveAction.performed -= OnMoveActionPerformed;
+        moveAction.canceled -= OnMoveActionCanceled;
+
+        InputAction jumpAction = m_CatActionMap.FindAction("Jump");
+        jumpAction.started -= OnJumpActionStarted;
+        jumpAction.performed -= OnJumpActionPerformed;
+        jumpAction.canceled -= OnJumpActionCanceled;
+    }
+
     void Update()
     {
-        m_CurrentState.Update(Time.deltaTime);
+        m_CurrentState.ActiveStateUpdate(Time.deltaTime);
     }
 
     void FixedUpdate()
     {
-        m_CurrentState.FixedUpdate(Time.fixedDeltaTime);
+        m_CurrentState.ActiveStateFixedUpdate(Time.fixedDeltaTime);
     }
 
     public void ChangeState(EMoveState newMoveState)

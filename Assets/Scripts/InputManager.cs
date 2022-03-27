@@ -49,7 +49,7 @@ public class InputManager : MonoBehaviour
         else
         {
             // TODO make camera with mouse not horrible
-            //input = Mouse.current.delta.ReadValue();
+            input = Mouse.current.delta.ReadValue();
         }
 
         return input;
