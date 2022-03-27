@@ -39,7 +39,7 @@ public class MoveStateJump : MoveStateBase
         m_Time += deltaTime;
     }
 
-    public override void OnJumpActionCanceled() 
+    public override void OnJumpHoldReleased(double duration) 
     {
         m_RigidBody.AddForce(m_JumpArc.InitialVelocity, ForceMode.VelocityChange);
     }

@@ -30,7 +30,7 @@ public class MoveStateWalk : MoveStateBase
         return Quaternion.Euler(0, facing, 0) * new Vector3(input.x, 0, input.y);
     }
 
-    public override void OnJumpActionStarted()
+    public override void OnJumpStart()
     {
         m_CatMovement.ChangeState(CatMovement.EMoveState.Jump);
     }

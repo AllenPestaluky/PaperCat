@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class CatMovement : MonoBehaviour
 {
@@ -111,17 +112,46 @@ public class CatMovement : MonoBehaviour
 
     void OnJumpActionStarted(InputAction.CallbackContext context)
     {
-        m_CurrentState.OnJumpActionStarted();
+        switch (context.interaction)
+        {
+            case TapInteraction:
+                m_CurrentState.OnJumpStart();
+                Debug.Log("Jump tap started");
+                break;
+            case HoldInteraction:
+                m_CurrentState.OnJumpHoldStart();
+                Debug.Log("Jump Hold started");
+                break;
+        }
     }
 
     void OnJumpActionPerformed(InputAction.CallbackContext context)
     {
-        m_CurrentState.OnJumpActionPerformed();
+        switch (context.interaction)
+        {
+            case TapInteraction:
+                Debug.Log("Jump tap Performed");
+                m_CurrentState.OnJumpTap();
+                break;
+            case HoldInteraction:
+                //m_CurrentState.OnJumpActionPerformed();
+                Debug.Log("Jump Hold Performed");
+                break;
+        }
     }
 
     void OnJumpActionCanceled(InputAction.CallbackContext context)
     {
-        m_CurrentState.OnJumpActionCanceled();
+        switch (context.interaction)
+        {
+            case TapInteraction:
+                Debug.Log("Jump tap canceled");
+                break;
+            case HoldInteraction:
+                m_CurrentState.OnJumpHoldReleased(context.duration);
+                Debug.Log("Jump Hold canceled");
+                break;
+        }
     }
 
 }

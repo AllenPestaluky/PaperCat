@@ -28,11 +28,12 @@ public class MoveStateBase : MonoBehaviour
 
     public virtual void OnMoveActionCanceled() { }
 
-    public virtual void OnJumpActionStarted() { }
+    public virtual void OnJumpStart() { }
 
-    public virtual void OnJumpActionPerformed() { }
+    public virtual void OnJumpTap() { }
 
-    public virtual void OnJumpActionCanceled() { }
+    public virtual void OnJumpHoldStart() { }
 
-
+    public virtual void OnJumpHoldReleased(double duration) { }
+    
 }
