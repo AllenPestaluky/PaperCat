@@ -5,8 +5,6 @@ namespace CatGame.Movement
 {
     public class CatJumpSelect : MonoBehaviour
     {
-        private const float GRID_OFFSET = 0.5f;
-
         [SerializeField]
         private float _radius;
 
@@ -39,8 +37,8 @@ namespace CatGame.Movement
             _cursorInstance = Instantiate(_cursorPrefab, transform.position, _cursorPrefab.transform.rotation);
             Vector3 startPosition = _cursorInstance.transform.position;
             startPosition += transform.forward * _radius;
-            startPosition.x = Mathf.Floor(_cursorInstance.transform.position.x) + GRID_OFFSET;
-            startPosition.z = Mathf.Floor(_cursorInstance.transform.position.z) + GRID_OFFSET;
+            startPosition.x = Mathf.Floor(_cursorInstance.transform.position.x) + SurfaceManager.GRID_OFFSET;
+            startPosition.z = Mathf.Floor(_cursorInstance.transform.position.z) + SurfaceManager.GRID_OFFSET;
             _cursorInstance.transform.position = startPosition;
         }
 
@@ -142,18 +140,18 @@ namespace CatGame.Movement
 
             Vector3 newPosition = _cursorInstance.transform.position + GetTranslatedCoordMod(upDownMod, leftRightMod);
             //TODO: move this to init when we no longer want to mess with radius the fly for testing
-            float detectRange = _radius * 0.5f + _cursorAllowance;
+            float detectRange = _radius + _cursorAllowance;
             if (Vector3.Distance(transform.position, newPosition) >= detectRange)
             {
                 //new position is not good. bail
                 return;
             }
-            //replace 16 with jump height... or just wait for heightmap
-            newPosition.y = transform.position.y + 16;
-            float safeY = transform.position.y;
-            if (Physics.Raycast(newPosition, transform.TransformDirection(Vector3.down), out RaycastHit hit))
+            float safeY;
+            if (!SurfaceManager.TryGetHeight(newPosition.x, newPosition.z, out safeY))
             {
-                safeY = hit.point.y;
+                //no safe spot! BAIL
+                //TODO: handle pits by snapping to closest safe target
+                return;
             }
             newPosition.y = safeY;
             _cursorInstance.transform.position = newPosition;

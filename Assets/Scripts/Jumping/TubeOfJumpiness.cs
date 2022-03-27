@@ -6,7 +6,6 @@ namespace CatGame.Movement
     [ExecuteInEditMode]
     public class TubeOfJumpiness : MonoBehaviour
     {
-        private const float GRID_OFFSET = 0.5f;
 
         [SerializeField]
         private float _diameter;
@@ -43,7 +42,7 @@ namespace CatGame.Movement
 
         public static float SnapCoord(float rawCoord)
         {
-            return Mathf.Floor(rawCoord) + GRID_OFFSET;
+            return Mathf.Floor(rawCoord) + SurfaceManager.GRID_OFFSET;
         }
 
         private void RefreshPool(WipCursor[] oldCursorArray)
