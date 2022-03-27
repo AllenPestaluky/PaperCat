@@ -5,75 +5,157 @@ namespace CatGame.Movement
 {
     public class CatJumpSelect : MonoBehaviour
     {
+        private const float GRID_OFFSET = 0.5f;
+
         [SerializeField]
-        private float _diameter;
+        private float _radius;
 
         [SerializeField]
         private float _cursorAllowance;
 
         [SerializeField]
         private WipCursor _cursorPrefab;
-
         private WipCursor _cursorInstance;
-        //these are relative to the cat's current position, but NOT rotation
-        private float _relativeX;
-        private float _relativeZ;
+
+        //when you hold a direction, how long does it take to start continuous movement?
+        [SerializeField]
+        private float _cursorMoveWait;
+        private float _moveWaitCounter;
+        private bool _keysAreDown = false;
+        private bool _continuousMove = false;
+
+        //when the cursor moves continuosly, how much time should elapse between subsequent moves?
+        [SerializeField]
+        private float _cursorMoveSpacing;
+        private float _moveSpacingCounter;
 
         private Keyboard _keyboard;
+        private Camera _mainCam;
 
         void Start()
         {
             _keyboard = Keyboard.current;
-            _relativeZ = _diameter * 0.25f;
-            _cursorInstance = Instantiate(_cursorPrefab, CalculateCursorPosition(), _cursorPrefab.transform.rotation);
+            _mainCam = Camera.main;
+            _cursorInstance = Instantiate(_cursorPrefab, transform.position, _cursorPrefab.transform.rotation);
+            Vector3 startPosition = _cursorInstance.transform.position;
+            startPosition += transform.forward * _radius;
+            startPosition.x = Mathf.Floor(_cursorInstance.transform.position.x) + GRID_OFFSET;
+            startPosition.z = Mathf.Floor(_cursorInstance.transform.position.z) + GRID_OFFSET;
+            _cursorInstance.transform.position = startPosition;
         }
 
-        private Vector3 CalculateCursorPosition()
+        private Vector3 GetTranslatedCoordMod(int upDownMod, int leftRightMod)
         {
-            return new Vector3()
+            //did longform to step through the logic. didn't compress because GAMEJAM
+            if (Mathf.Abs(_mainCam.transform.forward.x) > Mathf.Abs(_mainCam.transform.forward.z))
             {
-                x = TubeOfJumpiness.SnapCoord(transform.position.x + _relativeX),
-                y = 0f,
-                z = TubeOfJumpiness.SnapCoord(transform.position.z + _relativeZ)
-            };
+                //camera along global x axis
+                if (_mainCam.transform.forward.x >= 0)
+                {
+                    //facing global right
+                    return new Vector3(upDownMod, 0, leftRightMod * -1);
+                }
+                else
+                {
+                    //facing global left
+                    return new Vector3(upDownMod * -1, 0, leftRightMod);
+                }
+            }
+            else
+            {
+                //camera along global z axis
+                if (_mainCam.transform.forward.z >= 0)
+                {
+                    //facing global forward
+                    return new Vector3(leftRightMod, 0, upDownMod);
+                }
+                else
+                {
+                    //facing global backward
+                    return new Vector3(leftRightMod * -1, 0, upDownMod * -1);
+                }
+            }
         }
 
         private void FixedUpdate()
         {
-            float detectRange = _diameter * 0.5f + _cursorAllowance;
-            float lastGoodX = _relativeX;
-            float lastGoodZ = _relativeZ;
-            if (_keyboard.iKey.wasPressedThisFrame)
+            //TODO:replace this key stuff with proper input code, using movement axis floats
+            int upDownMod = 0;
+            if (_keyboard.iKey.isPressed != _keyboard.kKey.isPressed)
             {
-                _relativeZ++;
+                upDownMod = _keyboard.iKey.isPressed ? 1 : -1;
             }
-            if (_keyboard.kKey.wasPressedThisFrame)
+
+            int leftRightMod = 0;
+            if (_keyboard.jKey.isPressed != _keyboard.lKey.isPressed)
             {
-                _relativeZ--;
+                leftRightMod = _keyboard.lKey.isPressed ? 1 : -1;
             }
-            if (_keyboard.jKey.wasPressedThisFrame)
+
+            //no inputs. skip the rest
+            if (upDownMod == 0 && leftRightMod == 0)
             {
-                _relativeX--;
+                _keysAreDown = false;
+                _continuousMove = false;
+                _moveSpacingCounter = 0f;
+                _moveWaitCounter = 0f;
+                return;
             }
-            if (_keyboard.lKey.wasPressedThisFrame)
+
+            bool triggerMove = false;
+
+            if (_continuousMove)
             {
-                _relativeX++;
+                //already in continuous move mode. check spacing time
+                _moveSpacingCounter -= Time.deltaTime;
+                if (_moveSpacingCounter <= 0f)
+                {
+                    //fire another move and reset the held move counter
+                    triggerMove = true;
+                    _moveSpacingCounter = _cursorMoveSpacing;
+                }
             }
-            Vector3 newPosition = CalculateCursorPosition();
-            if (Vector3.Distance(gameObject.transform.position, newPosition) >= detectRange)
+            else if (_keysAreDown)
             {
-                //new position is not good
-                _relativeX = lastGoodX;
-                _relativeZ = lastGoodZ;
-                newPosition = CalculateCursorPosition();
+                //keys already down. check delay time
+                _moveWaitCounter -= Time.fixedDeltaTime;
+                if (_moveWaitCounter <= 0f)
+                {
+                    //we are now in continuous move mode. trigger a move and start the spacing counter for the first time
+                    _continuousMove = true;
+                    triggerMove = true;
+                    _moveSpacingCounter = _cursorMoveSpacing;
+                }
             }
-            newPosition.y = gameObject.transform.position.y + 16;
+            else
+            {
+                _keysAreDown = true;
+                _moveWaitCounter = _cursorMoveWait;
+                triggerMove = true;
+            }
+
+            //bail if we are not supposed to move
+            if (!triggerMove)
+            {
+                return;
+            }
+
+            Vector3 newPosition = _cursorInstance.transform.position + GetTranslatedCoordMod(upDownMod, leftRightMod);
+            //TODO: move this to init when we no longer want to mess with radius the fly for testing
+            float detectRange = _radius * 0.5f + _cursorAllowance;
+            if (Vector3.Distance(transform.position, newPosition) >= detectRange)
+            {
+                //new position is not good. bail
+                return;
+            }
+            //replace 16 with jump height... or just wait for heightmap
+            newPosition.y = transform.position.y + 16;
             float safeY = transform.position.y;
             if (Physics.Raycast(newPosition, transform.TransformDirection(Vector3.down), out RaycastHit hit))
             {
                 safeY = hit.point.y;
             }
-            newPosition.y = safeY + 0.1f;
+            newPosition.y = safeY;
             _cursorInstance.transform.position = newPosition;
         }
     }
