@@ -48,6 +48,16 @@ public class CatMovement : MonoBehaviour
         jumpAction.canceled += OnJumpActionCanceled;
     }
 
+    void Update()
+    {
+        m_CurrentState.Update(Time.deltaTime);
+    }
+
+    void FixedUpdate()
+    {
+        m_CurrentState.FixedUpdate(Time.fixedDeltaTime);
+    }
+
     public void ChangeState(EMoveState newMoveState)
     {
         m_CurrentState.Exit();
