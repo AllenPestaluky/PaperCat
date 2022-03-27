@@ -9,8 +9,8 @@ public class CatCameraLocked : MonoBehaviour
     private int lookAngle = 15;
 
     [SerializeField, Range(0, 1)]
-    [Tooltip("How long after camera angle change before accepting another. .")]
-    private float secondsBetweenAngleChanges = 0.3f;
+    [Tooltip("How long after camera angle change before accepting another.")]
+    private float secondsBetweenAngleChanges = 0.1f;
 
     [SerializeField, Range(0, 1)]
     [Tooltip("Threshold for when to count X/Y input.")]
