@@ -8,7 +8,7 @@ public class CatCameraLocked : MonoBehaviour
     [Tooltip("Angle camera will lock to in each direction.")]
     private int lookAngle = 15;
 
-    [SerializeField, Range(0, 1)]
+    [SerializeField, Min(0)]
     [Tooltip("How long after camera angle change before accepting another.")]
     private float secondsBetweenAngleChanges = 0.1f;
 
