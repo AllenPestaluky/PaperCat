@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54981dc99b646f34d824876fb9422543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 8
+  _radius: 10
   _cursorAllowance: 0.1
   _cursorPrefab: {fileID: 7755903347654075052, guid: 6b22456047f2424479f31483b89b48cc, type: 3}
+  _cursorMoveWait: 0.5
+  _cursorMoveSpacing: 0.1
