@@ -8,6 +8,7 @@ public struct JumpArc
     Vector3 acc;
 
     Vector3 vi;
+    public Vector3 InitialVelocity { get => vi; }
     public float tf { get; private set; }
 
     public JumpArc(Vector3 initialPositon, Vector3 targetPosition, float jumpHeight, Vector3 acceleration)
