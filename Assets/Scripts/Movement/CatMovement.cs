@@ -3,112 +3,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class CatMovement : MonoBehaviour
 {
-    InputManager m_InputManager;
-    Rigidbody m_RigidBody;
+    [SerializeField]
+    InputActionAsset m_CatActionMap;
 
-    enum MoveState 
+    // state stuff
+    Dictionary<EMoveState, MoveStateBase> m_MoveStateMap;
+    MoveStateBase m_CurrentState;
+
+    public enum EMoveState 
     {
         Walk,
-        Jump
+        Run,
+        Jump,
     };
-    MoveState m_MoveState;
 
-    const float stickInputDeadzone = 0.1f;
-
-    // So what do we need to do?
-    // - Know our movement state.
-    // - Know what input is coming in.
-    // - Direct input to an appropriate component.
-
-    // Start is called before the first frame update
     void Start()
     {
-        m_InputManager = GetComponent<InputManager>();
-        m_RigidBody = GetComponent<Rigidbody>();
+        Debug.Assert(m_CatActionMap != null);
+
+        m_MoveStateMap = new Dictionary<EMoveState, MoveStateBase>
+        {
+            { EMoveState.Walk,  new MoveStateWalk(this, "Walk") },
+            { EMoveState.Run,   new MoveStateRun(this, "Run")   },
+            { EMoveState.Jump,  new MoveStateJump(this, "Jump") }
+        };
+
+        m_CurrentState = m_MoveStateMap[EMoveState.Walk];
+
+        m_CatActionMap.Enable();
+
+        // refactor: macro or helper takes an action name and binds ???
+        InputAction moveAction = m_CatActionMap.FindAction("Move");
+        moveAction.started += OnMoveActionStarted;
+        moveAction.performed += OnMoveActionPerformed;
+        moveAction.canceled += OnMoveActionCanceled;
+
+        InputAction jumpAction = m_CatActionMap.FindAction("Jump");
+        jumpAction.started += OnJumpActionStarted;
+        jumpAction.performed += OnJumpActionPerformed;
+        jumpAction.canceled += OnJumpActionCanceled;
     }
 
-    void FixedUpdate()
+    public void ChangeState(EMoveState newMoveState)
     {
-        HandleInput();        
+        m_CurrentState.Exit();
+        m_CurrentState = m_MoveStateMap[newMoveState];
+        m_CurrentState.Enter();
     }
 
-    void HandleInput()
+    void OnMoveActionStarted(InputAction.CallbackContext context)
     {
-        // 1. See what input we have received.
-
-        // Input from left stick or arrow keys.
-        Vector2 leftStick = m_InputManager.GetLeftStickInput();
-        bool bAnyMoveInput = (leftStick.magnitude > stickInputDeadzone);
-
-        Vector3 moveInput;
-        if (bAnyMoveInput)
-        {
-            moveInput = new Vector3(leftStick.x, 0.0f, leftStick.y);
-        }
-        else
-        {
-            moveInput = new Vector3(0.0f, 0.0f, 0.0f);
-        }
-
-        //bool jumpButtonDown = m_InputManager.GetSouthButtonDown(); // Pressed this frame.
-        bool jumpButtonHeld = m_InputManager.GetSouthButton(); // Pressed or held.
-
-        // 2. Decide what to do with the input.
-        // May change states.
-        // Then handle input based on state.
-        // TODO: Make a state machine with an object for each state.
-
-        switch (m_MoveState)
-        {
-            case MoveState.Walk:
-            {
-                HandleWalkMovement(moveInput, jumpButtonHeld);
-            }
-            break;
-
-            case MoveState.Jump:
-            {
-                HandleJumpMovement(moveInput, jumpButtonHeld);
-            }
-            break;
-        }
+        m_CurrentState.OnMoveActionStarted();
     }
 
-    void HandleWalkMovement(Vector3 moveInput, bool jumpButtonHeld)
+    void OnMoveActionPerformed(InputAction.CallbackContext context)
     {
-        // Transition to jump state.
-        if (jumpButtonHeld)
-        {
-            Debug.Log("Enter jump state");
-            m_MoveState = MoveState.Jump;
-            //HandleJumpMovement(moveInput, jumpButtonHeld);
-            return;
-        }
-
-        // No transition, do walk movement.
-        m_RigidBody.AddForce(moveInput, ForceMode.Impulse);
+        Vector2 input = context.action.ReadValue<Vector2>();
+        m_CurrentState.OnMoveActionPerformed(input);
     }
 
-    void HandleJumpMovement(Vector3 moveInput, bool jumpButtonHeld)
+    void OnMoveActionCanceled(InputAction.CallbackContext context)
     {
-        // Finish jump.
-        if (!jumpButtonHeld)
-        {
-            // Release the jump
-            Vector3 jumpForce = new Vector3(0.0f, 25.0f, 0.0f);
-            m_RigidBody.AddForce(jumpForce, ForceMode.Impulse);
-
-            // And for now, just back to walk state.
-            m_MoveState = MoveState.Walk;
-            Debug.Log("Release jump");
-
-            return;
-        }
-
-        // TODO continue charging and aiming the jump.
+        m_CurrentState.OnMoveActionCanceled();
     }
+
+    void OnJumpActionStarted(InputAction.CallbackContext context)
+    {
+        m_CurrentState.OnJumpActionStarted();
+    }
+
+    void OnJumpActionPerformed(InputAction.CallbackContext context)
+    {
+        m_CurrentState.OnJumpActionPerformed();
+    }
+
+    void OnJumpActionCanceled(InputAction.CallbackContext context)
+    {
+        m_CurrentState.OnJumpActionCanceled();
+    }
+
 }
 
