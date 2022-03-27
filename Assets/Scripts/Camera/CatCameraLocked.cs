@@ -89,8 +89,6 @@ public class CatCameraLocked : MonoBehaviour
 
     private void UpdateFollowTarget()
     {
-        Debug.Log("UpdateFollowTarget: " + currentLookDirection);
-
         switch (currentLookDirection)
         {
             case LookDirection.Left:
