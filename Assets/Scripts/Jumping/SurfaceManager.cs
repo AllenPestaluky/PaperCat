@@ -84,7 +84,8 @@ namespace CatGame.Movement
                     {
                         Debug.DrawLine(lineStart, lineEnd, Color.magenta, 20f, false);
                     }
-                    if (Physics.Linecast(lineStart, lineEnd, out RaycastHit hit, LAYER_MASK))
+                    //TODO: test only Ground layer
+                    if (Physics.Linecast(lineStart, lineEnd, out RaycastHit hit))
                     {
                         height = hit.point.y;
                     }

@@ -156,6 +156,11 @@ namespace CatGame.Movement
             newPosition.y = safeY;
             _cursorInstance.transform.position = newPosition;
         }
+
+        private void Update()
+        {
+            _cursorInstance.RotateAndScale(_mainCam.transform.forward, Vector3.Distance(transform.position, _cursorInstance.transform.position));
+        }
     }
 
 }
