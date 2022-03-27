@@ -3,34 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MoveStateBase
+public class MoveStateBase : MonoBehaviour
 {
     protected CatMovement m_CatMovement;
-    protected string m_Name;
 
-    public MoveStateBase(CatMovement cm, string name)
+    public void Start()
     {
-        m_CatMovement = cm;
-        Debug.Assert(name.Length > 0);
-        m_Name = name;
+        m_CatMovement = GetComponent<CatMovement>();
     }
 
-    public virtual void Enter() 
-    {
-        Debug.Log("Start state: " + m_Name);
-    }
+    public virtual CatMovement.EMoveState GetStateEnum() { return CatMovement.EMoveState.Invalid; }
 
-    public virtual void Exit()
-    {
-        Debug.Log("Start state: " + m_Name);
-    }
+    public virtual void Enter() { }
 
-    public virtual void Update(float deltaTime)
-    {
-        Debug.Log("Update state: " + m_Name);
-    }
+    public virtual void Exit() { }
 
-    public virtual void FixedUpdate(float deltaTime) { }
+    public virtual void ActiveStateUpdate(float deltaTime) { }
+
+    public virtual void ActiveStateFixedUpdate(float deltaTime) { }
 
     public virtual void OnMoveActionStarted() { }
 

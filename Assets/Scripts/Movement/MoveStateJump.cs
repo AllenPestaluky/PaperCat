@@ -6,9 +6,16 @@ using UnityEngine.InputSystem;
 public class MoveStateJump : MoveStateBase
 {
     Rigidbody m_RigidBody;
-    public MoveStateJump(CatMovement cm, string name) : base(cm, name)
+
+    public new void Start()
     {
-        m_RigidBody = cm.GetComponent<Rigidbody>();
+        base.Start();
+        m_RigidBody = GetComponent<Rigidbody>();
+    }
+
+    public override CatMovement.EMoveState GetStateEnum()
+    { 
+        return CatMovement.EMoveState.Jump;
     }
 
     public override void OnJumpActionCanceled() 

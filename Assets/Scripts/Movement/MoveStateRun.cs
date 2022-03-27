@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class MoveStateRun : MoveStateBase
 {
-    public MoveStateRun(CatMovement cm, string name) : base(cm, name)
+    public new void Start()
     {
+        base.Start();
     }
+
+    public override CatMovement.EMoveState GetStateEnum()
+    { 
+        return CatMovement.EMoveState.Run;
+    }
+
 }
