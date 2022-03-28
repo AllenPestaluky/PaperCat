@@ -22,19 +22,7 @@ public class CatCamera : MonoBehaviour
     {
         if (isCameraLocked != isLocked)
         {
-            isCameraLocked = isLocked;
-
-            if (isCameraLocked)
-            {
-                catCameraLocked.ResetCamera();
-            }
-            else
-            {
-                catCameraFree.ResetCamera();
-            }
-
-            virtualCameraFree.gameObject.SetActive(!isCameraLocked);
-            virtualCameraLocked.gameObject.SetActive(isCameraLocked);
+            SetCameraLockedInternal(isLocked);
         }
     }
 
@@ -47,6 +35,7 @@ public class CatCamera : MonoBehaviour
         inputManager = GetComponent<InputManager>();
 
         Cursor.lockState = CursorLockMode.Locked;
+        SetCameraLockedInternal(false);
     }
 
     private void Update()
@@ -71,5 +60,22 @@ public class CatCamera : MonoBehaviour
         {
             catCameraFree.UpdateCamera(lookInput);
         }
+    }
+
+    private void SetCameraLockedInternal(bool isLocked)
+    {
+        isCameraLocked = isLocked;
+
+        if (isCameraLocked)
+        {
+            catCameraLocked.ResetCamera();
+        }
+        else
+        {
+            catCameraFree.ResetCamera();
+        }
+
+        virtualCameraFree.gameObject.SetActive(!isCameraLocked);
+        virtualCameraLocked.gameObject.SetActive(isCameraLocked);
     }
 }

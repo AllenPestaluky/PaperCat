@@ -10,6 +10,9 @@ public class CatCameraFree : MonoBehaviour
     [SerializeField]
     private Transform followTarget = null;
 
+    [SerializeField]
+    private Transform playerCat = null;
+
     public void ResetCamera()
     {
         // Start freelook at 0,0,0 again
@@ -18,6 +21,8 @@ public class CatCameraFree : MonoBehaviour
 
     public void UpdateCamera(Vector2 lookInput)
     {
+        followTarget.localPosition = playerCat.localPosition;
+
         // Based on https://www.youtube.com/watch?v=537B1kJp9YQ
 
         // Rotate the Follow Target transform based on the input
